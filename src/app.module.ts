@@ -1,21 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { session } from 'telegraf';
-import { TelegrafModule } from 'nestjs-telegraf';
-import telegrafConfig from './core/configuration/telegraf-config';
-import { telegramUsersGuard } from './entities/telegram-user';
+import { ConfigModule } from '@nestjs/config';
+import { TelegramModule } from './core/modules/telegram/telegram.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    TelegrafModule.forRootAsync({
-      imports: [ConfigModule.forFeature(telegrafConfig)],
-      useFactory: (configService: ConfigService) => ({
-        token: configService.get<string>('telegramBotToken'),
-        middlewares: [session(), telegramUsersGuard()],
-      }),
-      inject: [ConfigService],
-    }),
-  ],
+  imports: [ConfigModule.forRoot(), TelegramModule],
+  providers: [],
 })
 export class AppModule {}
