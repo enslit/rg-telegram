@@ -1,11 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { EmployeeService } from './entities/employee/employee.service';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.createApplicationContext(AppModule, {
     logger: ['log', 'warn', 'error'],
   });
 
-  await app.listen(5000);
+  const employeeService = app.get(EmployeeService);
+  employeeService.getEmployee();
 }
 bootstrap();
