@@ -3,8 +3,7 @@ import { connect } from 'mssql';
 import { FactoryProvider, Logger, LoggerService, Scope } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IMSSQLConfig } from './mssql.config';
-
-export const RusguardDatabaseConnection = Symbol('RusguardDatabaseConnection');
+import { RusguardDatabaseConnection } from '@shared/provider-tokens';
 
 type MssqlConnectionFactory = (
   configService: ConfigService<IMSSQLConfig>,

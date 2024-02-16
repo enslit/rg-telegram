@@ -1,9 +1,10 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConnectionPool } from 'mssql';
-import { RusguardDatabaseConnection } from 'src/core/modules/rusguard-dabatase';
+import { Employee } from '@shared/types/rusguard';
+import { RusguardDatabaseConnection } from '@shared/provider-tokens';
 
 export interface IEmployeeService {
-  getEmployee: () => Promise<any>;
+  getEmployee: () => Promise<Employee>;
 }
 
 @Injectable()

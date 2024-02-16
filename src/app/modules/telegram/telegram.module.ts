@@ -3,8 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { session } from 'telegraf';
 import telegrafConfig, { ITelegramConfig } from './telegraf-config';
-import { telegramUsersGuard } from '../../../entities/telegram-user';
 import { LoggerModule } from '../logger/logger.module';
+import { telegramUsersGuard } from '@entities/telegram-user';
 
 @Module({
   imports: [
