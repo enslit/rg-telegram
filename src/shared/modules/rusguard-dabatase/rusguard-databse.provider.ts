@@ -3,12 +3,13 @@ import { connect } from 'mssql';
 import { FactoryProvider, Logger, LoggerService, Scope } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IMSSQLConfig } from './mssql.config';
-import { RusguardDatabaseConnection } from '@shared/provider-tokens';
 
 type MssqlConnectionFactory = (
   configService: ConfigService<IMSSQLConfig>,
   logger?: LoggerService,
 ) => Promise<ConnectionPool>;
+
+export const RusguardDatabaseConnection = Symbol('RusguardDatabaseConnection');
 
 const useFactory: MssqlConnectionFactory = async (configService, logger) => {
   try {

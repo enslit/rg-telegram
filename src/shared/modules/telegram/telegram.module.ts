@@ -2,9 +2,9 @@ import { Logger, LoggerService, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { session } from 'telegraf';
+import { LoggerModule } from '@shared/modules/logger';
 import telegrafConfig, { ITelegramConfig } from './telegraf-config';
-import { LoggerModule } from '../logger/logger.module';
-import { telegramUsersGuard } from '@entities/telegram-user';
+import { telegramUsersGuard } from './telegram-user.middleware';
 
 @Module({
   imports: [

@@ -6,8 +6,6 @@
     "deleteOutDir": true
   },
   "paths": {
-    "@app/*": ["src/app/*"],
-    "@shared/*": ["src/shared/*"],
-    "@entities/*": ["src/entities/*"]
+    "@shared/*": ["src/shared/*"]
   }
 }

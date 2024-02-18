@@ -1,4 +1,4 @@
-import { LogMessageSubType } from './rusguard';
+import { LogMessageSubType } from '../rusguard-dabatase';
 import { Context, Scenes } from 'telegraf';
 
 /**

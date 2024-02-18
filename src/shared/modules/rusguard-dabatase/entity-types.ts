@@ -1,8 +1,3 @@
-export interface Sort<T> {
-  field: keyof T;
-  direction: 'ASC' | 'DESC';
-}
-
 export interface Employee {
   _id: string;
   FirstName?: string;

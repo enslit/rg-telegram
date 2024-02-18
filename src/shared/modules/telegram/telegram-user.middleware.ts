@@ -1,7 +1,7 @@
 import { LoggerService } from '@nestjs/common';
-import { TGContext } from 'src/shared/types/telegram-ctx';
 import { MiddlewareFn } from 'telegraf';
 import { SceneSessionData } from 'telegraf/typings/scenes';
+import { TGContext } from './telegram-ctx';
 
 const mapTelegramUsersToEmployees: Record<number, string> = {
   546865995: 'C7D4F9F6-52B6-4346-A4A2-BFAA8D7DCCCC', // Prosto_Alex -> Юлиана Пономарева
