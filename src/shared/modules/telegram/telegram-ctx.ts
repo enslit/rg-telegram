@@ -1,5 +1,7 @@
+import { Deunionize } from 'telegraf/typings/deunionize';
 import { LogMessageSubType } from '../rusguard-dabatase';
 import { Context, Scenes } from 'telegraf';
+import { Update } from 'telegraf/typings/core/types/typegram';
 
 /**
  * It is possible to extend the session object that is available to each scene.
@@ -24,7 +26,10 @@ export interface EditLogSession extends Omit<Scenes.SceneSessionData, 'state'> {
  * We now have to set the scene object under the `scene` property. As we extend
  * the scene session, we need to pass the type in as a type variable.
  */
-export interface TGContext<S extends Scenes.SceneSessionData> extends Context {
+export interface TGContext<
+  S extends Scenes.SceneSessionData,
+  U extends Deunionize<Update> = Update,
+> extends Context<U> {
   employeeId: string;
 
   scene: Scenes.SceneContextScene<TGContext<S>, S>;
