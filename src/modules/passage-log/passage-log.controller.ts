@@ -2,31 +2,27 @@ import { Injectable } from '@nestjs/common';
 import { TGContext } from '@shared/modules/telegram/telegram-ctx';
 import { Command, Ctx, InjectBot, Update } from 'nestjs-telegraf';
 import { Telegraf } from 'telegraf';
+import { SCENES } from './constants';
 
 @Update()
 @Injectable()
 export class PassageLogController {
   constructor(@InjectBot() private bot: Telegraf<TGContext<never>>) {
-    bot.telegram.setMyCommands([
-      {
-        command: 'show_logs',
-        description: 'Show logs',
-      },
-      {
-        command: 'edit_log',
-        description: 'Edit log',
-      },
-    ]);
+    const commands = Object.values(SCENES).map(({ command, description }) => ({
+      command,
+      description,
+    }));
+
+    bot.telegram.setMyCommands(commands);
   }
 
-  @Command('show_logs')
+  @Command(SCENES.showLogs.command)
   async showLogs(@Ctx() ctx: TGContext<never>) {
-    await ctx.reply('controller status - OK');
-    await ctx.scene.enter('logs');
+    await ctx.scene.enter(SCENES.showLogs.sceneId);
   }
 
-  @Command('edit_log')
+  @Command(SCENES.editLog.command)
   async editLog(@Ctx() ctx: TGContext<never>) {
-    await ctx.reply('Работаю над этим разделом');
+    await ctx.scene.enter(SCENES.editLog.sceneId);
   }
 }

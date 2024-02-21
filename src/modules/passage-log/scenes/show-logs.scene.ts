@@ -1,12 +1,13 @@
 import { Markup } from 'telegraf';
 import { Action, Command, Ctx, Scene, SceneEnter } from 'nestjs-telegraf';
-import { TGContext } from '@shared/modules/telegram/telegram-ctx';
-import { PassageLogService } from './passage-log.service';
 import * as dayjs from 'dayjs';
+import { TGContext } from '@shared/modules/telegram/telegram-ctx';
+import { PassageLogService } from '../passage-log.service';
 import { normalizeISODate } from '@shared/utils/normalizeISODate';
-import { clearLogs } from './utils';
+import { clearLogs } from '../utils';
+import { SCENES } from '../constants';
 
-@Scene('logs')
+@Scene(SCENES.showLogs.sceneId)
 export class ShowLogsScene {
   constructor(private readonly passageLogService: PassageLogService) {}
 
