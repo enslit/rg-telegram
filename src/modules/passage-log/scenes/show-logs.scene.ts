@@ -55,7 +55,12 @@ export class ShowLogsScene {
   }
 
   private async replyLogs(ctx: TGContext<never>, logs: string) {
-    await ctx.reply(logs);
+    if (logs.length) {
+      await ctx.reply(logs);
+    } else {
+      await ctx.reply('Нет записей за выбранный период');
+    }
+
     await ctx.scene.leave();
   }
 

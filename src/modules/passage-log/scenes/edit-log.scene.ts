@@ -115,12 +115,42 @@ export class EditLogsScene {
   @Hears(/\d{2}\.\d{2}\.\d{2}\s\d{2}:\d{2}:\d{2}/) // 15.02.24 17:38:07
   async onChooseLog(@Ctx() ctx: ContextWithTextMessage) {
     if (!ctx.scene.session.state.mapLogs) {
-      return await ctx.reply('Не найдены идентификаторы записей');
+      return await ctx.reply(
+        'Не найдены идентификаторы записей. Попорбуй начать сначала',
+      );
     }
 
     const logId = ctx.scene.session.state.mapLogs[ctx.message.text];
+    ctx.scene.session.state.mapLogs = {};
+    ctx.scene.session.state.logId = logId;
 
-    ctx.reply(`Log id ${logId}`);
+    ctx.reply('Введи новое время в формате HH:MM:SS', {
+      reply_markup: { remove_keyboard: true },
+    });
+  }
+
+  @Hears(/\d{2}:\d{2}:\d{2}/)
+  async onEnterNewTime(@Ctx() ctx: ContextWithTextMessage) {
+    const newTime = ctx.message.text;
+    const logId = ctx.scene.session.state.logId;
+
+    if (!dayjs(newTime, 'HH:mm:ss', true).isValid()) {
+      return await ctx.reply(
+        'Неверный формат. Ожидается формат HH:mm:ss. Пример - 23:45:59',
+      );
+    }
+
+    if (!logId) {
+      return await ctx.reply(
+        'Не найден идентификатор записи. Попробуй начать сначала',
+      );
+    }
+
+    await this.passageLogService.editPassageLog({ logId, newTime });
+    await ctx.reply(`Запись ${logId} была успешно отредактирована`);
+
+    ctx.scene.session.state = {};
+    ctx.scene.leave();
   }
 }
 

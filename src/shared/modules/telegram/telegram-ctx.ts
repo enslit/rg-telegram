@@ -17,6 +17,7 @@ export interface EditLogSession extends Omit<Scenes.SceneSessionData, 'state'> {
     startPeriod?: string;
     endPeriod?: string;
     mapLogs?: Record<string, string>;
+    logId?: string;
   };
 }
 
